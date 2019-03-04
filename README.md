@@ -1,5 +1,7 @@
 ![](https://styles.redditmedia.com/t5_3gl3k/styles/bannerPositionedImage_3it9rpm9xab21.png)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d4f0422e86140949f0701f2ef2fb890)](https://www.codacy.com/app/corstian/MemeEconomy.Insights?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=corstian/MemeEconomy.Insights&amp;utm_campaign=Badge_Grade)
+
 MemeEconomy.Insights
 ====================
 

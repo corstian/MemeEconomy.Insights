@@ -19,9 +19,11 @@ namespace MemeEconomy.Insights.Graph
 
             Field<InvestmentType>()
                 .Name("investments")
+                .Argument<StringGraphType>("opportunity", "Accepts an opportunity's cursor in order to subscribe to them updates.")
                 .Resolve(context => context.Source as Investment)
                 .Subscribe(context =>
                 {
+                    context.GetArgument<string>("opportunity");
                     throw new NotImplementedException();
                 });
         }

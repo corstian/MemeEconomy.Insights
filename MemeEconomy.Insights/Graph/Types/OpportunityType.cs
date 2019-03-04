@@ -1,12 +1,13 @@
 ﻿using GraphQL.Types;
 using MemeEconomy.Data;
-using System;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace MemeEconomy.Insights.Graph.Types
 {
     public class OpportunityType : ObjectGraphType<Opportunity>
     {
-        public OpportunityType()
+        public OpportunityType(IConfiguration config)
         {
             Field<StringGraphType>()
                 .Name("cursor")
@@ -20,7 +21,10 @@ namespace MemeEconomy.Insights.Graph.Types
                 .Name("investments")
                 .Resolve(context =>
                 {
-                    throw new NotImplementedException();
+                    using (var store = new MemeEconomyContext(config))
+                    {
+                        return store.Investments.Where(q => q.OpportunityId == context.Source.Id);
+                    }
                 });
         }
     }

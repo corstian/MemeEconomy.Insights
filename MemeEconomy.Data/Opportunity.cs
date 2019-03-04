@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemeEconomy.Data
 {
@@ -9,9 +10,15 @@ namespace MemeEconomy.Data
 
         public string Title { get; set; }
         public DateTime Timestamp { get; set; }
-        public string RedditUri { get; set; }
+
+        public string PostId { get; set; }
+
         public string MemeUri { get; set; }
 
         public List<Investment> Investments { get; set; }
+
+
+        [NotMapped]
+        public string RedditUri => $"https://reddit.com/r/MemeEconomy/comments/{PostId}/";
     }
 }

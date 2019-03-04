@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MemeEconomy.Data\MemeEconomy.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Graph\DataLoaders\" />
+  </ItemGroup>
+
 </Project>
