@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28621.142
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeEconomy.Insights", "MemeEconomy.Insights\MemeEconomy.Insights.csproj", "{570FE36D-283C-4DD1-8CFF-48A510CD3885}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeEconomy.Data", "MemeEconomy.Data\MemeEconomy.Data.csproj", "{40C5C4F2-3CAD-455F-944C-E9CEF36D8E81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47659FFE-5048-4E4E-B325-C28EEDFC4E7C}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{570FE36D-283C-4DD1-8CFF-48A510CD3885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{570FE36D-283C-4DD1-8CFF-48A510CD3885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{570FE36D-283C-4DD1-8CFF-48A510CD3885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{570FE36D-283C-4DD1-8CFF-48A510CD3885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C5C4F2-3CAD-455F-944C-E9CEF36D8E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C5C4F2-3CAD-455F-944C-E9CEF36D8E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C5C4F2-3CAD-455F-944C-E9CEF36D8E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C5C4F2-3CAD-455F-944C-E9CEF36D8E81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75080D36-9584-4C42-B388-2D1E5C960BF1}
+	EndGlobalSection
+EndGlobal
