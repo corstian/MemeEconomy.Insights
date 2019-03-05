@@ -1,8 +1,10 @@
 ﻿using AspNetCoreRateLimit;
 using GraphQL.Server;
 using GraphQL.Types;
+using MemeEconomy.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RedditSharp;
@@ -47,6 +49,13 @@ namespace MemeEconomy.Insights
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            // Some database related things
+            services.AddDbContext<MemeEconomyContext>(options =>
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<MemeEconomyContext>();
+            services.AddSingleton<IContextProvider<MemeEconomyContext>, ContextProvider<MemeEconomyContext>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

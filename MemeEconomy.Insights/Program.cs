@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Reactive.Subjects;
+using MemeEconomy.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace MemeEconomy.Insights
 {
     public class Program
     {
+        public static readonly ISubject<Opportunity> Opportunities = new Subject<Opportunity>();
+        public static readonly ISubject<Investment> Investments = new Subject<Investment>();
+        
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

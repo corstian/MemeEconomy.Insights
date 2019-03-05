@@ -2,13 +2,11 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d4f0422e86140949f0701f2ef2fb890)](https://www.codacy.com/app/corstian/MemeEconomy.Insights?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=corstian/MemeEconomy.Insights&amp;utm_campaign=Badge_Grade)
 
-MemeEconomy.Insights
-====================
+# MemeEconomy.Insights
 
 Follow the latest and greatest market trends! This application enables you to invest in the newest and most innovative memes on the market.
 
 Just kidding. Read on.
-
 
 ## Introduction
 
@@ -18,7 +16,7 @@ MemeEconomy.Insights is a mashup between asp.net core, graphql-dotnet, and Reddi
 
 This application depends on a single service which checks Reddit for new content.
 
-- **MemeEconomyStalker**  
+  - **MemeEconomyStalker**  
   *This service is registered as `IHostedService` so it is ran on startup. All it does is follow "MemeInvestor_bot" for comments. With some string extraction magic we get to know about what happens on the trade floor.*
 
 ## GraphQL
@@ -36,6 +34,5 @@ You're totally free to use this api as you like. You may use the hosted version 
 *Happy trading!*
 
 ![](https://media.giphy.com/media/94EQmVHkveNck/giphy.gif)
-
 
 ***BTW:** This service has originally been built to serve as an example to show how to use the graphql-dotnet library. Do as you wish with this information.*

@@ -2,6 +2,9 @@
 using MemeEconomy.Data;
 using MemeEconomy.Insights.Graph.Types;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
 
 namespace MemeEconomy.Insights.Graph
 {
@@ -14,17 +17,25 @@ namespace MemeEconomy.Insights.Graph
                 .Resolve(context => context.Source as Opportunity)
                 .Subscribe(context =>
                 {
-                    throw new NotImplementedException();
+                    return Program.Opportunities.AsObservable();
                 });
 
             Field<InvestmentType>()
                 .Name("investments")
-                .Argument<StringGraphType>("opportunity", "Accepts an opportunity's cursor in order to subscribe to them updates.")
+                .Argument<ListGraphType<StringGraphType>>("opportunities", "Accepts an opportunity's cursor in order to subscribe to them updates.")
                 .Resolve(context => context.Source as Investment)
                 .Subscribe(context =>
                 {
-                    context.GetArgument<string>("opportunity");
-                    throw new NotImplementedException();
+                    var opportunities = context
+                        .GetArgument<List<string>>("opportunities")
+                            ?.Select(q => q.FromCursor())
+                        ?? new List<Guid>(0);
+
+                    var flow = Program.Investments.AsObservable();
+
+                    if (opportunities.Any()) flow.Where(q => opportunities.Contains(q.OpportunityId));
+
+                    return flow;
                 });
         }
     }

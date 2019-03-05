@@ -1,22 +1,17 @@
 ﻿using GraphQL.Types;
 using MemeEconomy.Insights.Graph.Types;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace MemeEconomy.Insights.Graph
 {
     public class Query : ObjectGraphType<object>
     {
-        public Query()
+        public Query(IConfiguration config)
         {
-            Field<OpportunityType>()
+            Connection<OpportunityType>()
                 .Name("opportunities")
-                .Resolve(context =>
-                {
-                    throw new NotImplementedException();
-                });
-
-            Field<InvestmentType>()
-                .Name("investments")
+                .Unidirectional()
                 .Resolve(context =>
                 {
                     throw new NotImplementedException();

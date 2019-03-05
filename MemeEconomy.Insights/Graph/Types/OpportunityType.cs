@@ -1,13 +1,16 @@
-﻿using GraphQL.Types;
+﻿using GraphQL.DataLoader;
+using GraphQL.Types;
 using MemeEconomy.Data;
+using MemeEconomy.Insights.Graph.DataLoaders;
 using Microsoft.Extensions.Configuration;
-using System.Linq;
 
 namespace MemeEconomy.Insights.Graph.Types
 {
     public class OpportunityType : ObjectGraphType<Opportunity>
     {
-        public OpportunityType(IConfiguration config)
+        public OpportunityType(
+            IConfiguration config,
+            IDataLoaderContextAccessor dataLoader)
         {
             Field<StringGraphType>()
                 .Name("cursor")
@@ -23,7 +26,7 @@ namespace MemeEconomy.Insights.Graph.Types
                 {
                     using (var store = new MemeEconomyContext(config))
                     {
-                        return store.Investments.Where(q => q.OpportunityId == context.Source.Id);
+                        return dataLoader.EntityCollectionLoader(store.Investments, q => q.OpportunityId, context.Source.Id);
                     }
                 });
         }
