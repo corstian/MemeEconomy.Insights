@@ -8,9 +8,9 @@ using SqlKata.Execution;
 
 namespace MemeEconomy.Insights.Graph
 {
-    public class Query : ObjectGraphType<object>
+    public class GraphQuery : ObjectGraphType<object>
     {
-        public Query(
+        public GraphQuery(
             IConfiguration config,
             QueryFactory queryFactory)
         {

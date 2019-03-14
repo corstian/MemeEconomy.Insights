@@ -19,12 +19,17 @@ namespace MemeEconomy.Insights.Models
             _connectionString = connectionString;
         }
 
-        public MemeEconomyContext(IConfiguration config) : this(config["ConnectionStrings:DefaultConnection"]) { }
+        public MemeEconomyContext(IConfiguration config) : this(config["database:connection"]) { }
         public MemeEconomyContext(DbContextOptions<MemeEconomyContext> options) : base(options) { }
 
 
         public DbSet<Investment> Investments { get; set; }
         public DbSet<Opportunity> Opportunities { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString, q => q.EnableRetryOnFailure());
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

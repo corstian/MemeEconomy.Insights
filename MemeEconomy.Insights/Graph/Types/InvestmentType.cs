@@ -1,6 +1,6 @@
-﻿using GraphQL.DataLoader;
+﻿using Boerman.GraphQL.Contrib.DataLoaders;
+using GraphQL.DataLoader;
 using GraphQL.Types;
-using MemeEconomy.Insights.Graph.DataLoaders;
 using MemeEconomy.Insights.Models;
 using Microsoft.Extensions.Configuration;
 

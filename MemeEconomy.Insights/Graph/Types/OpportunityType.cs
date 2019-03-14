@@ -1,9 +1,8 @@
-﻿using GraphQL.DataLoader;
+﻿using Boerman.GraphQL.Contrib.DataLoaders;
+using GraphQL.DataLoader;
 using GraphQL.Types;
-using MemeEconomy.Insights.Graph.DataLoaders;
 using MemeEconomy.Insights.Models;
 using Microsoft.Extensions.Configuration;
-using SqlKata.Execution;
 
 namespace MemeEconomy.Insights.Graph.Types
 {
@@ -11,8 +10,7 @@ namespace MemeEconomy.Insights.Graph.Types
     {
         public OpportunityType(
             IConfiguration config,
-            IDataLoaderContextAccessor dataLoader,
-            QueryFactory queryFactory)
+            IDataLoaderContextAccessor dataLoader)
         {
             Field<StringGraphType>()
                 .Name("cursor")

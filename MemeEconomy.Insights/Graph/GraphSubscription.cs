@@ -8,9 +8,9 @@ using System.Reactive.Linq;
 
 namespace MemeEconomy.Insights.Graph
 {
-    public class Subscription : ObjectGraphType<object>
+    public class GraphSubscription : ObjectGraphType<object>
     {
-        public Subscription()
+        public GraphSubscription()
         {
             Field<OpportunityType>()
                 .Name("opportunities")
