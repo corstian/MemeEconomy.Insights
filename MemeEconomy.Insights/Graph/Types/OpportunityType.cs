@@ -9,8 +9,8 @@ namespace MemeEconomy.Insights.Graph.Types
     public class OpportunityType : ObjectGraphType<Opportunity>
     {
         public OpportunityType(
-            IConfiguration config,
-            IDataLoaderContextAccessor dataLoader)
+            IDataLoaderContextAccessor dataLoader,
+            IContextProvider<MemeEconomyContext> dbProvider)
         {
             Field<StringGraphType>()
                 .Name("cursor")
@@ -24,10 +24,7 @@ namespace MemeEconomy.Insights.Graph.Types
                 .Name("investments")
                 .Resolve(context =>
                 {
-                    using (var store = new MemeEconomyContext(config))
-                    {
-                        return dataLoader.EntityCollectionLoader(store.Investments, q => q.OpportunityId, context.Source.Id);
-                    }
+                    return dataLoader.EntityCollectionLoader(dbProvider.Get().Investments, q => q.OpportunityId, context.Source.Id);
                 });
         }
     }
