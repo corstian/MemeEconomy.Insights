@@ -2,6 +2,7 @@
 using GraphQL.Server;
 using GraphQL.Types;
 using MemeEconomy.Data;
+using MemeEconomy.Insights.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace MemeEconomy.Data
+namespace MemeEconomy.Insights.Models
 {
     public class MemeEconomyContext : DbContext
     {

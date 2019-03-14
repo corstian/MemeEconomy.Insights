@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MemeEconomy.Data
+namespace MemeEconomy.Insights.Models
 {
     public class Opportunity
     {

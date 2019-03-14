@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Subjects;
 using MemeEconomy.Data;
+using MemeEconomy.Insights.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 

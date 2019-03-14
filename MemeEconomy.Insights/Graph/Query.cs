@@ -11,10 +11,13 @@ namespace MemeEconomy.Insights.Graph
         {
             Connection<OpportunityType>()
                 .Name("opportunities")
+                .Argument<OpportunityOrderType>("order", "")
                 .Unidirectional()
                 .Resolve(context =>
                 {
-                    throw new NotImplementedException();
+                    var order = context.GetArgument<string>("order");
+
+                    
                 });
         }
     }
