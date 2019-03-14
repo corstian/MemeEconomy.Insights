@@ -15,6 +15,6 @@ after_success:
   - chmod 600 deploy.key
   - ssh-add deploy.key
   - ssh-keyscan dokku.skyhop.org >> ~/.ssh/known_hosts
-  - git remote add deploy dokku@dokku.skyhop.org:skyhop
+  - git remote add deploy dokku@dokku.skyhop.org:memeeconomy
   - git config --global push.default simple
   - git push deploy master
