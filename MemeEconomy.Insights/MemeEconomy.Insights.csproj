@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Queries\Investments.Query.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Queries\Investments.Query.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AspNetCoreRateLimit" Version="3.0.3" />
     <PackageReference Include="Boerman.GraphQL.Contrib" Version="1.0.0" />
     <PackageReference Include="GraphQL" Version="2.4.0" />
