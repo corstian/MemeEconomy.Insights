@@ -1,5 +1,4 @@
 ﻿using GraphQL.Types;
-using MemeEconomy.Data;
 using MemeEconomy.Insights.Graph.Types;
 using MemeEconomy.Insights.Models;
 using System;

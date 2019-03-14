@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Boerman.GraphQL.Contrib;
+using System;
 
 namespace MemeEconomy.Insights.Models
 {
-    public class Investment
+    public class Investment : IId
     {
         public Guid Id { get; set; }
         public Guid OpportunityId { get; set; }

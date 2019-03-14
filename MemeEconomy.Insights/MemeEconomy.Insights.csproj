@@ -9,19 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCoreRateLimit" Version="3.0.2" />
+    <Compile Remove="Queries\Investments.Query.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Queries\Investments.Query.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="3.0.3" />
+    <PackageReference Include="Boerman.GraphQL.Contrib" Version="1.0.0" />
     <PackageReference Include="GraphQL" Version="2.4.0" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.8" />
     <PackageReference Include="RedditSharp" Version="1.1.14" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MemeEconomy.Data\MemeEconomy.Data.csproj" />
   </ItemGroup>
 
 </Project>

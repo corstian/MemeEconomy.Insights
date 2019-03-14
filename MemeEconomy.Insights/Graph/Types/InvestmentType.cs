@@ -1,10 +1,8 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using MemeEconomy.Data;
 using MemeEconomy.Insights.Graph.DataLoaders;
 using MemeEconomy.Insights.Models;
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace MemeEconomy.Insights.Graph.Types
 {

@@ -1,5 +1,4 @@
-﻿using MemeEconomy.Data;
-using MemeEconomy.Insights.Models;
+﻿using MemeEconomy.Insights.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using RedditSharp;

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Boerman.GraphQL.Contrib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemeEconomy.Insights.Models
 {
-    public class Opportunity
+    public class Opportunity : IId
     {
         public Guid Id { get; set; }
 
