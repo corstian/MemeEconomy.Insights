@@ -12,7 +12,10 @@ namespace MemeEconomy.Insights
         
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .MigrateDatabase<MemeEconomyContext>()
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

@@ -39,7 +39,7 @@ namespace MemeEconomy.Insights.Services
                     {
                         var match = _checkInvestment.Match(comment.Body);
                         var postId = comment.LinkId.Split('_')[1];
-                        Guid opportunityId = Guid.Empty;
+                        //Guid opportunityId = Guid.Empty;
 
                         using (var store = new MemeEconomyContext(_config))
                         {
@@ -58,17 +58,29 @@ namespace MemeEconomy.Insights.Services
 
                                 store.Opportunities.Add(opportunity);
                                 store.SaveChanges();
-
-                                opportunityId = opportunity.Id;
                             }
                             else if (match.Success)
                             {
+                                var opportunityId = store
+                                    .Opportunities
+                                    ?.SingleOrDefault(q => q.PostId == postId)
+                                    ?.Id ?? Guid.Empty;
+                            
                                 if (opportunityId == Guid.Empty)
                                 {
-                                    opportunityId = store
-                                        .Opportunities
-                                        .Single(q => q.PostId == postId)
-                                        .Id;
+                                    var opportunity = new Opportunity
+                                    {
+                                        Id = Guid.NewGuid(),
+                                        Title = comment.LinkTitle,
+                                        Timestamp = comment.Created.UtcDateTime,
+                                        PostId = postId,
+                                        MemeUri = _reddit.GetPost(new Uri(comment.Shortlink)).Url.ToString()
+                                    };
+
+                                    store.Opportunities.Add(opportunity);
+                                    store.SaveChanges();
+
+                                    opportunityId = opportunity.Id;
                                 }
 
                                 var investment = new Investment

@@ -14,10 +14,7 @@ namespace MemeEconomy.Insights
         {
             services.AddScoped<MemeEconomyContext>();
             services.AddSingleton<IContextProvider<MemeEconomyContext>, ContextProvider<MemeEconomyContext>>();
-
-            services.AddDbContext<MemeEconomyContext>
-                (options => options.UseSqlServer(_config["database:connection"]));
-
+            
             services.AddSingleton((serviceProvider) =>
             {
                 var connection = new SqlConnection(_config["database:connection"]);
