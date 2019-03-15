@@ -39,6 +39,7 @@ namespace MemeEconomy.Insights
             ConfigureData(services);
             ConfigureGraph(services);
 
+            // In order to prevent duplicate (And therefore incorrect) data showing up
             services.AddSingleton<IHostedService, MemeEconomyStalker>();
         }
 

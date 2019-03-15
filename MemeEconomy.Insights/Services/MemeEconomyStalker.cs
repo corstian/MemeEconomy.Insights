@@ -91,7 +91,7 @@ namespace MemeEconomy.Insights.Services
                                     Amount = Convert.ToInt64(match.Groups[1].Value.Replace(",", "")),
                                     Upvotes = Convert.ToInt32(match.Groups[2].Value.Replace(",", ""))
                                 };
-
+                                
                                 Program.Investments.OnNext(investment);
 
                                 store.Investments.Add(investment);
@@ -110,6 +110,8 @@ namespace MemeEconomy.Insights.Services
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
+            // ToDo: Remove all duplicate records from the db
+
             return Task.CompletedTask;
         }
     }

@@ -11,7 +11,7 @@ namespace MemeEconomy.Insights.Models
         [Obsolete("This constructor is only used for running migrations!")]
         public MemeEconomyContext()
         {
-            _connectionString = "Data Source=(localdb)\\.;Initial Catalog=skyhop_hosting;Integrated Security=True;";
+            _connectionString = "Data Source=(localdb)\\.;Initial Catalog=memeeconomy;Integrated Security=True;";
         }
 
         private MemeEconomyContext(string connectionString)

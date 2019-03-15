@@ -18,7 +18,12 @@ namespace MemeEconomy.Insights.Queries
             if (order != default)
             {
                 
+            } else
+            {
+                sqlQuery.OrderByDesc("Timestamp");
             }
+
+            sqlQuery.Select("*");
 
             return sqlQuery;
         }

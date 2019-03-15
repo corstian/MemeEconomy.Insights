@@ -3,6 +3,7 @@ using GraphQL.DataLoader;
 using GraphQL.Execution;
 using GraphQL.Http;
 using GraphQL.Server;
+using GraphQL.Types;
 using GraphQL.Types.Relay;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ namespace MemeEconomy.Insights
             services.AddTransient(typeof(ConnectionType<>));
             services.AddTransient(typeof(EdgeType<>));
             services.AddTransient<PageInfoType>();
+            services.AddSingleton<ULongGraphType>();
 
             Assembly
                 .GetExecutingAssembly()

@@ -17,10 +17,11 @@ namespace MemeEconomy.Insights.Graph.Types
                 .Resolve(context => context.Source.Id.ToCursor());
 
             Field(q => q.Amount);
-            Field(q => q.Timestamp);
+            Field(q => q.Upvotes);
+            Field(q => q.Timestamp, type: typeof(DateTimeGraphType));
 
             Field<OpportunityType>()
-                .Name("opporunity")
+                .Name("opportunity")
                 .ResolveAsync(async context =>
                 {
                     using (var store = new MemeEconomyContext(config))
