@@ -4,6 +4,7 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.2-sdk-stretch AS build
 WORKDIR /src
+COPY ["nginx.conf.sigil", "../app/nginx.conf.sigil"] # NGINX Config for Dokku
 COPY ["MemeEconomy.Insights/MemeEconomy.Insights.csproj", "MemeEconomy.Insights/"]
 RUN dotnet restore "MemeEconomy.Insights/MemeEconomy.Insights.csproj"
 COPY . .
