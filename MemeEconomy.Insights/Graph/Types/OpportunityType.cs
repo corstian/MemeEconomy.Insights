@@ -23,6 +23,7 @@ namespace MemeEconomy.Insights.Graph.Types
 
             Field(q => q.RedditUri);
             Field(q => q.MemeUri);
+            Field(q => q.Title);
 
             Field<ULongGraphType>()
                 .Name("netAssetValue")
