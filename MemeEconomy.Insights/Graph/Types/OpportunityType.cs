@@ -47,7 +47,7 @@ namespace MemeEconomy.Insights.Graph.Types
 
             Field<ListGraphType<InvestmentType>>()
                 .Name("investments")
-                .ResolveAsync(async context => (await GetInvestments(dataLoader, dbProvider, context)).OrderBy(q => q.Timestamp));
+                .ResolveAsync(async context => ((await GetInvestments(dataLoader, dbProvider, context)) ?? new Investment[] { }).OrderBy(q => q.Timestamp));
         }
         
         private async Task<IEnumerable<Investment>> GetInvestments(
@@ -57,7 +57,7 @@ namespace MemeEconomy.Insights.Graph.Types
         {
             var investments = await dataLoader.EntityCollectionLoader(dbProvider.Get().Investments, q => q.OpportunityId, context.Source.Id);
 
-            if (investments == null || !investments.Any()) return new Investment[] { };
+            if (investments == null || !investments.Any()) return null;
 
             // Deduplication logic
             investments = investments.GroupBy(q => new
