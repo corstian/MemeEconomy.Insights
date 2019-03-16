@@ -30,7 +30,7 @@ namespace MemeEconomy.Insights.Graph.Types
                 .Description("Net Asset Value per updoot")
                 .ResolveAsync(async context =>
                 {
-                    var investments = (await GetInvestments(dataLoader, dbProvider, context));
+                    var investments = (await GetInvestments(dataLoader, dbProvider, context)) ?? new Investment[] { };
 
                     return investments.Any()
                         ? investments.Sum(q => q.Amount) / investments.Max(q => q.Upvotes)
