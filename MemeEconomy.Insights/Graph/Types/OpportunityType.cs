@@ -1,18 +1,13 @@
-﻿using Boerman.GraphQL.Contrib.DataLoaders;
-using GraphQL.DataLoader;
-using GraphQL.Types;
+﻿using GraphQL.Types;
 using MemeEconomy.Insights.Models;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MemeEconomy.Insights.Graph.Types
 {
     public class OpportunityType : ObjectGraphType<Opportunity>
     {
-        public OpportunityType(
-            IDataLoaderContextAccessor dataLoader,
-            IContextProvider<MemeEconomyContext> dbProvider)
+        public OpportunityType(Ledger ledger)
         {
             Field<StringGraphType>()
                 .Name("cursor")
@@ -25,12 +20,19 @@ namespace MemeEconomy.Insights.Graph.Types
             Field(q => q.MemeUri);
             Field(q => q.Title);
 
-            Field<ULongGraphType>()
-                .Name("netAssetValue")
-                .Description("Net Asset Value per updoot")
-                .ResolveAsync(async context =>
+            Field<ListGraphType<InvestmentType>>()
+                .Name("investments")
+                .Resolve(context =>
                 {
-                    var investments = (await GetInvestments(dataLoader, dbProvider, context)) ?? new Investment[] { };
+                    return ledger.GetInvestments(context.Source.Id);
+                });
+
+            Field<ULongGraphType>()
+                .Name("nuv")
+                .Description("Net updoot value")
+                .Resolve(context =>
+                {
+                    var investments = ledger.GetInvestments(context.Source.Id) ?? new Investment[] { };
 
                     if (!investments.Any()) return 0;
 
@@ -38,42 +40,70 @@ namespace MemeEconomy.Insights.Graph.Types
 
                     if (max == 0) return 0;
 
-                    return investments.Any()
-                        ? investments.Sum(q => q.Amount) / max
+                    return investments.Sum(q => q.Amount) / max;
+                });
+
+            Field<ULongGraphType>()
+                .Name("rnuv")
+                .Description("Recent net updoot value")
+                .Resolve(context =>
+                {
+                    var investments = ledger.GetInvestments(context.Source.Id)
+                        ?.Where(q => q.Timestamp > DateTime.UtcNow.AddHours(-4));
+
+                    if (!(investments?.Any() ?? false)) return 0;
+
+                    var max = investments.Max(q => q.Upvotes);
+
+                    if (max == 0) return 0;
+
+                    return investments.Sum(q => q.Amount) / max;
+                });
+
+            Field<ULongGraphType>()
+                .Name("invested")
+                .Resolve(context =>
+                {
+                    var investments = ledger.GetInvestments(context.Source.Id);
+
+                    return investments?.Any() ?? false
+                        ? investments.Sum(q => q.Amount)
+                        : 0;
+                });
+
+            Field<IntGraphType>()
+                .Name("upvoted")
+                .Resolve(context => {
+                    var investments = ledger.GetInvestments(context.Source.Id);
+
+                    return investments?.Any() ?? false
+                        ? investments.Max(q => q.Upvotes)
                         : 0;
                 });
 
             Field<ULongGraphType>()
-                .Name("totalInvested")
-                .ResolveAsync(async context => (await GetInvestments(dataLoader, dbProvider, context))?.Max(q => q.Amount) ?? 0);
+                .Name("recentInvestments")
+                .Resolve(context =>
+                {
+                    var investments = ledger.GetInvestments(context.Source.Id)
+                        ?.Where(q => q.Timestamp > DateTime.UtcNow.AddHours(-4));
+
+                    if (!(investments?.Any() ?? false)) return 0;
+
+                    return investments.Sum(q => q.Amount);
+                });
 
             Field<IntGraphType>()
-                .Name("totalUpvotes")
-                .ResolveAsync(async context => (await GetInvestments(dataLoader, dbProvider, context))?.Max(q => q.Upvotes) ?? 0);
+                .Name("recentUpvotes")
+                .Resolve(context =>
+                {
+                    var investments = ledger.GetInvestments(context.Source.Id)
+                        ?.Where(q => q.Timestamp > DateTime.UtcNow.AddHours(-4));
 
-            Field<ListGraphType<InvestmentType>>()
-                .Name("investments")
-                .ResolveAsync(async context => ((await GetInvestments(dataLoader, dbProvider, context)) ?? new Investment[] { }).OrderBy(q => q.Timestamp));
-        }
-        
-        private async Task<IEnumerable<Investment>> GetInvestments(
-            IDataLoaderContextAccessor dataLoader,
-            IContextProvider<MemeEconomyContext> dbProvider,
-            ResolveFieldContext<Opportunity> context)
-        {
-            var investments = await dataLoader.EntityCollectionLoader(dbProvider.Get().Investments, q => q.OpportunityId, context.Source.Id);
+                    if (!(investments?.Any() ?? false)) return 0;
 
-            if (investments == null || !investments.Any()) return null;
-
-            // Deduplication logic
-            investments = investments.GroupBy(q => new
-            {
-                q.Timestamp,
-                q.Amount
-            })
-            .Select(q => q.First());
-
-            return investments;
+                    return investments.Max(q => q.Upvotes);
+                });
         }
     }
 }

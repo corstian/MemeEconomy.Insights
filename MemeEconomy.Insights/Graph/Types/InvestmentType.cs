@@ -10,7 +10,8 @@ namespace MemeEconomy.Insights.Graph.Types
     {
         public InvestmentType(
             IConfiguration config,
-            IDataLoaderContextAccessor dataLoader)
+            IDataLoaderContextAccessor dataLoader,
+            Ledger ledger)
         {
             Field<StringGraphType>()
                 .Name("cursor")
@@ -22,13 +23,7 @@ namespace MemeEconomy.Insights.Graph.Types
 
             Field<OpportunityType>()
                 .Name("opportunity")
-                .ResolveAsync(async context =>
-                {
-                    using (var store = new MemeEconomyContext(config))
-                    {
-                        return await dataLoader.EntityLoader(store.Opportunities, q => q.Id, context.Source.OpportunityId);
-                    }
-                });
+                .Resolve(context => ledger.GetOpportunity(context.Source.OpportunityId));
         }
     }
 }
