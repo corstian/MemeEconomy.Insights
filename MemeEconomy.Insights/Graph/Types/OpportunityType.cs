@@ -24,7 +24,7 @@ namespace MemeEconomy.Insights.Graph.Types
                 .Name("investments")
                 .Resolve(context =>
                 {
-                    return ledger.GetInvestments(context.Source.Id);
+                    return (ledger.GetInvestments(context.Source.Id) ?? new Investment[] { }).OrderBy(q => q.Timestamp);
                 });
 
             Field<ULongGraphType>()
