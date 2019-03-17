@@ -12,6 +12,7 @@
     <PackageReference Include="AspNetCoreRateLimit" Version="3.0.3" />
     <PackageReference Include="Boerman.GraphQL.Contrib" Version="1.0.0" />
     <PackageReference Include="GraphQL" Version="2.4.0" />
+    <PackageReference Include="GraphQL.Relay" Version="0.5.0" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
     <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

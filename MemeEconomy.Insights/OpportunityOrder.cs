@@ -2,8 +2,9 @@
 {
     public enum OpportunityOrder
     {
-        Trending,
-        Rising,
-        Falling
+        New,
+        Hot,
+        Popular,
+        Rising
     }
 }

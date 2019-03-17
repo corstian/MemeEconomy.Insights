@@ -1,4 +1,5 @@
 ﻿using MemeEconomy.Insights.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using RedditSharp;
@@ -15,20 +16,34 @@ namespace MemeEconomy.Insights.Services
     {
         private readonly IConfiguration _config;
         private readonly Reddit _reddit;
+        private readonly Ledger _ledger;
         private RedditUser _memeInvestorBot;
 
         private readonly Regex _checkInvestment = new Regex(@"\*([0-9,]+) MemeCoins invested @ ([0-9,]+) upvotes\*");
         
         public MemeEconomyStalker(
             IConfiguration config,
-            Reddit reddit)
+            Reddit reddit,
+            Ledger ledger)
         {
             _config = config;
             _reddit = reddit;
+            _ledger = ledger;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
+            // Populate the ledger with existing data
+
+            using (var dbContext = new MemeEconomyContext(_config))
+            {
+                dbContext.Opportunities
+                    .Include(q => q.Investments)
+                    .Where(q => q.Timestamp > DateTime.UtcNow.AddDays(-1))
+                    .ToList()
+                    .ForEach(q => _ledger.AddOpportunity(q));
+            }
+
             _memeInvestorBot = _reddit.GetUser("MemeInvestor_bot");
 
             _ = Task.Run(() =>
@@ -54,6 +69,8 @@ namespace MemeEconomy.Insights.Services
                                     MemeUri = _reddit.GetPost(new Uri(comment.Shortlink)).Url.ToString()
                                 };
 
+                                _ledger.AddOpportunity(opportunity);
+
                                 Program.Opportunities.OnNext(opportunity);
 
                                 store.Opportunities.Add(opportunity);
@@ -77,6 +94,8 @@ namespace MemeEconomy.Insights.Services
                                         MemeUri = _reddit.GetPost(new Uri(comment.Shortlink)).Url.ToString()
                                     };
 
+                                    _ledger.AddOpportunity(opportunity);
+
                                     store.Opportunities.Add(opportunity);
                                     store.SaveChanges();
 
@@ -91,7 +110,9 @@ namespace MemeEconomy.Insights.Services
                                     Amount = Convert.ToInt64(match.Groups[1].Value.Replace(",", "")),
                                     Upvotes = Convert.ToInt32(match.Groups[2].Value.Replace(",", ""))
                                 };
-                                
+
+                                _ledger.AddTransaction(investment);
+
                                 Program.Investments.OnNext(investment);
 
                                 store.Investments.Add(investment);

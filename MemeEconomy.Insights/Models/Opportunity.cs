@@ -18,7 +18,6 @@ namespace MemeEconomy.Insights.Models
 
         public List<Investment> Investments { get; set; }
 
-
         [NotMapped]
         public string RedditUri => $"https://reddit.com/r/MemeEconomy/comments/{PostId}/";
     }

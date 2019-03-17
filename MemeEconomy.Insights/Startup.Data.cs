@@ -12,6 +12,7 @@ namespace MemeEconomy.Insights
     {
         private void ConfigureData(IServiceCollection services)
         {
+            services.AddSingleton<Ledger>();
             services.AddScoped<MemeEconomyContext>();
             services.AddSingleton<IContextProvider<MemeEconomyContext>, ContextProvider<MemeEconomyContext>>();
             

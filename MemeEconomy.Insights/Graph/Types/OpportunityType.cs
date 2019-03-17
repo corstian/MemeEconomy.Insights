@@ -32,8 +32,14 @@ namespace MemeEconomy.Insights.Graph.Types
                 {
                     var investments = (await GetInvestments(dataLoader, dbProvider, context)) ?? new Investment[] { };
 
+                    if (!investments.Any()) return 0;
+
+                    var max = investments.Max(q => q.Upvotes);
+
+                    if (max == 0) return 0;
+
                     return investments.Any()
-                        ? investments.Sum(q => q.Amount) / investments.Max(q => q.Upvotes)
+                        ? investments.Sum(q => q.Amount) / max
                         : 0;
                 });
 
