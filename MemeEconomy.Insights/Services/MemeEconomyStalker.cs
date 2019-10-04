@@ -19,7 +19,7 @@ namespace MemeEconomy.Insights.Services
         private readonly Ledger _ledger;
         private RedditUser _memeInvestorBot;
 
-        private readonly Regex _checkInvestment = new Regex(@"\*([0-9,]+) MemeCoins invested @ ([0-9,]+) upvotes\*");
+        private readonly Regex _checkInvestment = new Regex(@"\*([0-9,]+) MemeCoins invested @ ([0-9,]+) upd00ts\*");
         
         public MemeEconomyStalker(
             IConfiguration config,

@@ -17,6 +17,7 @@
     },
     "MemeEconomy.Insights": {
       "commandName": "Project",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -27,8 +28,8 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "httpPort": 35278,
-      "useSSL": true,
-      "sslPort": 44347
+      "sslPort": 44347,
+      "useSSL": true
     }
   }
 }
